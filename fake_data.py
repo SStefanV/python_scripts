@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Editor de Spyder
-
-Este es un archivo temporal.
+Script for generating fake data 
 """
 from faker import Faker
 fake = Faker()
