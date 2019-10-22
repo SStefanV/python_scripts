@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Script for generating fake data 
+Script for generating fake data very easily
 A lot more info on the web site   https://faker.readthedocs.io/en/latest/providers.html
 First: 'pip install Faker'
 If you are using Anaconda distribution use: 'conda install -c conda-forge faker'
