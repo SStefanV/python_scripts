@@ -9,13 +9,14 @@ import requests, time, smtplib
 from bs4 import BeautifulSoup
 from notify_run import Notify
 from datetime import datetime
+import os
 
 url = 'https://www.amazon.co.uk/Wireless-Patuoxun-Computer-Cordless-Adjustment/dp/B01ESZJSUK/ref=pd_bxgy_147_img_2/261-8829968-6337237?_encoding=UTF8&pd_rd_i=B01ESZJSUK&pd_rd_r=56d64070-b8c4-4e7c-a208-3842f6df21b0&pd_rd_w=f0ntx&pd_rd_wg=DQBBQ&pf_rd_p=7a9d3b22-47b7-4932-be38-57f4219c3325&pf_rd_r=68ZRBBKJFKF9Y4M2HZX5&psc=1&refRID=68ZRBBKJFKF9Y4M2HZX5'
 dp = 8
 URL = url
 pnmsg = "Below Euro. " + str(dp) + " you can get your COMPUTER."
 headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3809.132 Safari/537.36'}
-
+mail_psw = os.environ.get('MAIL_PSW')
 def check_price():
 
   page = requests.get(URL, headers=headers,)
@@ -38,7 +39,7 @@ def check_price():
   count = 0
   if(price_now <= dp):
     send_mail()
-    push_notification()
+  #  push_notification()
   else:
     count = count+1
   print("Rechecking... Last checked at "+str(datetime.now()))
@@ -48,12 +49,11 @@ def send_mail():
   server.ehlo()
   server.starttls()
   server.ehlo()
-  server.login('rakulle@gmail.com','tyyeakwphgocrncc')
+  server.login('rakulle@gmail.com', mail_psw)
   subject = "Price of COMPUTER fallen down below Rs. "+str(dp)
   body = "Hey Stefan! \n The price computer euros."+str(dp)+".\n So, hurry up & check the amazon link right now : "+url
   msg = f"Subject: {subject} \n\n {body} "
-  server.sendmail('rakulle@gmail.com', 'nicoleta.nastasia@gmail.com', msg)
-  
+  server.sendmail('rakulle@gmail.com', 'rakulle@gmail.com', msg) 
   
   
   
