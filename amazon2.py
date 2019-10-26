@@ -17,6 +17,7 @@ URL = url
 pnmsg = "Below Euro. " + str(dp) + " you can get your COMPUTER."
 headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3809.132 Safari/537.36'}
 mail_psw = os.environ.get('MAIL_PSW')
+mail_user = os.environ.get('MAIL_USER')
 def check_price():
 
   page = requests.get(URL, headers=headers,)
@@ -49,11 +50,11 @@ def send_mail():
   server.ehlo()
   server.starttls()
   server.ehlo()
-  server.login('rakulle@gmail.com', mail_psw)
+  server.login(mail_user, mail_psw)
   subject = "Price of COMPUTER fallen down below Rs. "+str(dp)
   body = "Hey Stefan! \n The price computer euros."+str(dp)+".\n So, hurry up & check the amazon link right now : "+url
   msg = f"Subject: {subject} \n\n {body} "
-  server.sendmail('rakulle@gmail.com', 'rakulle@gmail.com', msg) 
+  server.sendmail(mail_user, mail_user, msg) 
   
   
   
