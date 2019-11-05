@@ -7,7 +7,7 @@ Created on Mon Oct 14 20:12:04 2019
 
 import requests, time, smtplib
 from bs4 import BeautifulSoup
-from notify_run import Notify
+#from notify_run import Notify
 from datetime import datetime
 import os
 
@@ -16,13 +16,14 @@ dp = 8
 URL = url
 pnmsg = "Below Euro. " + str(dp) + " you can get your COMPUTER."
 headers = {"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3809.132 Safari/537.36'}
-mail_psw = os.environ.get('MAIL_PSW')
+mail_psw = os.environ.get('MAIL_PASS')
 mail_user = os.environ.get('MAIL_USER')
+
+
 def check_price():
 
   page = requests.get(URL, headers=headers,)
   soup= BeautifulSoup(page.content,'html.parser')
-  
   #--------------------------------------------------------------------------------------
   title = soup.find(id="productTitle").get_text()
   price = soup.find(id="priceblock_ourprice").get_text()
@@ -63,16 +64,16 @@ def send_mail():
   server.quit()
 
 #Now lets send the push notification-------------------------------------------------
-def push_notification():
+""" def push_notification():
   notify = Notify()
   notify.send(pnmsg)
   print("HEY STEFAN, PUSH NOTIFICATION HAS BEEN SENT SUCCESSFULLY.")
  
-  print("Check again after an hour.")
+  print("Check again after an hour.") """
 #Now lets check the price after 1 min ----------------------------------------------- 
 count = 0
 while(True):
   count += 1
   print("Count : "+str(count))
   check_price()
-  time.sleep(1000)
+  time.sleep(1000) 
